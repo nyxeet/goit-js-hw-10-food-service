@@ -14,7 +14,6 @@ const bodyRef = document.querySelector('body');
 
 galleryRef.insertAdjacentHTML('beforeend', markup)
 
-
 window.addEventListener("load", event => {
     const currentTheme = localStorage.getItem('theme')
     if (currentTheme == 'dark-theme') {
