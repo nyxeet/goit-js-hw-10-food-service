@@ -2,38 +2,47 @@ import './styles.css';
 import itemsTemplate from '../src/templates/gallery-items.hbs'
 import menuItems from '../src/menu.json'
 
-const Theme = {
+const themes = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
+const refs = {
+    galleryRef: document.querySelector('.js-menu'),
+    checkboxRef: document.querySelector('#theme-switch-toggle'),
+    bodyRef: document.querySelector('body'),
+}
+const { galleryRef, checkboxRef, bodyRef } = refs;
 
-const galleryRef = document.querySelector('.js-menu')
-const markup = itemsTemplate(menuItems);
-const checkboxRef = document.querySelector('#theme-switch-toggle');
-const bodyRef = document.querySelector('body');
+window.addEventListener("load", getThemeFromLocalStorage)
+checkboxRef.addEventListener("change", changeTheme)
 
-galleryRef.insertAdjacentHTML('beforeend', markup)
-
-window.addEventListener("load", event => {
+function getThemeFromLocalStorage() {
     const currentTheme = localStorage.getItem('theme')
     if (currentTheme == 'dark-theme') {
-        bodyRef.classList.add(Theme.DARK);
+        bodyRef.classList.add(themes.DARK);
         checkboxRef.setAttribute('checked', true)
     } else {
-        bodyRef.classList.add(Theme.LIGHT);
+        bodyRef.classList.add(themes.LIGHT);
     }
-})
 
-checkboxRef.addEventListener("change", event => {
+}
+
+function changeTheme() {
     if (checkboxRef.checked) {
         checkboxRef.setAttribute('checked', true)
-        bodyRef.classList.add(Theme.DARK)
-        bodyRef.classList.remove(Theme.LIGHT)
-        localStorage.setItem('theme', Theme.DARK)
+        bodyRef.classList.add(themes.DARK)
+        bodyRef.classList.remove(themes.LIGHT)
+        localStorage.setItem('theme', themes.DARK)
     } else {
         checkboxRef.setAttribute('checked', false)
-        bodyRef.classList.remove(Theme.DARK)
-        bodyRef.classList.add(Theme.LIGHT)
-        localStorage.setItem('theme', Theme.LIGHT)
+        bodyRef.classList.remove(themes.DARK)
+        bodyRef.classList.add(themes.LIGHT)
+        localStorage.setItem('theme', themes.LIGHT)
     }
-})
+}
+
+function createMenu() {
+    const markup = itemsTemplate(menuItems);
+    galleryRef.insertAdjacentHTML('beforeend', markup)
+}
+createMenu();
