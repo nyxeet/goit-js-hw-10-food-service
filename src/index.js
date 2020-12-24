@@ -29,14 +29,10 @@ function getThemeFromLocalStorage() {
 
 function changeTheme() {
     if (checkboxRef.checked) {
-        checkboxRef.setAttribute('checked', true)
-        bodyRef.classList.add(themes.DARK)
-        bodyRef.classList.remove(themes.LIGHT)
+        bodyRef.classList.replace(themes.LIGHT, themes.DARK)
         localStorage.setItem('theme', themes.DARK)
     } else {
-        checkboxRef.setAttribute('checked', false)
-        bodyRef.classList.remove(themes.DARK)
-        bodyRef.classList.add(themes.LIGHT)
+        bodyRef.classList.replace(themes.DARK, themes.LIGHT)
         localStorage.setItem('theme', themes.LIGHT)
     }
 }
